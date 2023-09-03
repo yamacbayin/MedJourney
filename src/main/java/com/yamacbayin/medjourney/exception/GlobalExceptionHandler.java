@@ -38,4 +38,31 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.PAYMENT_REQUIRED);
     }
 
+    @ExceptionHandler(AlreadySelectedException.class)
+    public ResponseEntity<ErrorResponse> alreadySelectedException(AlreadySelectedException e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setTimestamp(LocalDateTime.now());
+        errorResponse.setError(e.getMessage());
+        errorResponse.setStatus(HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(InvalidFlightException.class)
+    public ResponseEntity<ErrorResponse> invalidFlightException(InvalidFlightException e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setTimestamp(LocalDateTime.now());
+        errorResponse.setError(e.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AppointmentException.class)
+    public ResponseEntity<ErrorResponse> appointmentException(AppointmentException e) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setTimestamp(LocalDateTime.now());
+        errorResponse.setError(e.getMessage());
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.yamacbayin.medjourney.database.entity.HotelEntity;
 import com.yamacbayin.medjourney.database.entity.HotelReservationEntity;
 import com.yamacbayin.medjourney.database.entity.HotelRoomEntity;
 import com.yamacbayin.medjourney.database.repository.HotelRoomRepository;
+import com.yamacbayin.medjourney.database.specification.HotelRoomSpecification;
 import com.yamacbayin.medjourney.exception.InvalidUuidException;
 import com.yamacbayin.medjourney.mapper.HotelRoomMapper;
 import com.yamacbayin.medjourney.model.requestdto.HotelRoomRequestDTO;
@@ -20,11 +21,18 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class HotelRoomService extends BaseService<
-        HotelRoomEntity, HotelRoomResponseDTO, HotelRoomRequestDTO, HotelRoomRepository, HotelRoomMapper> {
+        HotelRoomEntity, HotelRoomResponseDTO, HotelRoomRequestDTO,
+        HotelRoomRepository, HotelRoomMapper, HotelRoomSpecification> {
 
     private final HotelRoomRepository hotelRoomRepository;
+    private final HotelRoomSpecification hotelRoomSpecification;
 
     private final HotelService hotelService;
+
+    @Override
+    protected String getEntityName() {
+        return "Room";
+    }
 
     @Override
     protected HotelRoomMapper getMapper() {
@@ -34,6 +42,11 @@ public class HotelRoomService extends BaseService<
     @Override
     protected HotelRoomRepository getRepository() {
         return this.hotelRoomRepository;
+    }
+
+    @Override
+    protected HotelRoomSpecification getSpecification() {
+        return hotelRoomSpecification;
     }
 
     @Override

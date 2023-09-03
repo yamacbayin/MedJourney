@@ -2,6 +2,7 @@ package com.yamacbayin.medjourney.service;
 
 import com.yamacbayin.medjourney.database.entity.PatientEntity;
 import com.yamacbayin.medjourney.database.repository.PatientRepository;
+import com.yamacbayin.medjourney.database.specification.PatientSpecification;
 import com.yamacbayin.medjourney.mapper.PatientMapper;
 import com.yamacbayin.medjourney.model.requestdto.PatientRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.PatientResponseDTO;
@@ -15,9 +16,15 @@ import java.math.BigDecimal;
 @Service
 @RequiredArgsConstructor
 public class PatientService extends BaseService<
-        PatientEntity, PatientResponseDTO, PatientRequestDTO, PatientRepository, PatientMapper> {
+        PatientEntity, PatientResponseDTO, PatientRequestDTO, PatientRepository, PatientMapper, PatientSpecification> {
 
     private final PatientRepository patientRepository;
+    private final PatientSpecification patientSpecification;
+
+    @Override
+    protected String getEntityName() {
+        return "Patient";
+    }
 
     @Override
     protected PatientMapper getMapper() {
@@ -27,6 +34,11 @@ public class PatientService extends BaseService<
     @Override
     protected PatientRepository getRepository() {
         return this.patientRepository;
+    }
+
+    @Override
+    protected PatientSpecification getSpecification() {
+        return patientSpecification;
     }
 
     @Transactional

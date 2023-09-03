@@ -1,7 +1,5 @@
 package com.yamacbayin.medjourney.model.responsedto;
 
-import com.yamacbayin.medjourney.database.entity.AppointmentEntity;
-import com.yamacbayin.medjourney.database.entity.MedicalReportEntity;
 import com.yamacbayin.medjourney.util.BaseResponseDTO;
 import lombok.Data;
 

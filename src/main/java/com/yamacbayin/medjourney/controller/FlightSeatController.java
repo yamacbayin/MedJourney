@@ -2,6 +2,7 @@ package com.yamacbayin.medjourney.controller;
 
 import com.yamacbayin.medjourney.database.entity.FlightSeatEntity;
 import com.yamacbayin.medjourney.database.repository.FlightSeatRepository;
+import com.yamacbayin.medjourney.database.specification.FlightSeatSpecification;
 import com.yamacbayin.medjourney.mapper.FlightSeatMapper;
 import com.yamacbayin.medjourney.model.requestdto.FlightSeatRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.FlightSeatResponseDTO;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class FlightSeatController extends BaseController<
         FlightSeatEntity, FlightSeatResponseDTO, FlightSeatRequestDTO,
-        FlightSeatRepository, FlightSeatMapper, FlightSeatService> {
+        FlightSeatRepository, FlightSeatMapper, FlightSeatSpecification, FlightSeatService> {
 
     private final FlightSeatService flightSeatService;
 

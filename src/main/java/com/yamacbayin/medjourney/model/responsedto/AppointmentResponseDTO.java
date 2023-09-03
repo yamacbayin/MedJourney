@@ -1,6 +1,6 @@
 package com.yamacbayin.medjourney.model.responsedto;
 
-import com.yamacbayin.medjourney.database.entity.*;
+import com.yamacbayin.medjourney.database.entity.MedicalReportEntity;
 import com.yamacbayin.medjourney.model.responsedto.appointment.*;
 import com.yamacbayin.medjourney.model.status.AppointmentStatusEnum;
 import com.yamacbayin.medjourney.util.BaseResponseDTO;

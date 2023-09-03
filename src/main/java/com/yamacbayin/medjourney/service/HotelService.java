@@ -3,6 +3,7 @@ package com.yamacbayin.medjourney.service;
 import com.yamacbayin.medjourney.database.entity.HotelEntity;
 import com.yamacbayin.medjourney.database.entity.HotelRoomEntity;
 import com.yamacbayin.medjourney.database.repository.HotelRepository;
+import com.yamacbayin.medjourney.database.specification.HotelSpecification;
 import com.yamacbayin.medjourney.mapper.HotelMapper;
 import com.yamacbayin.medjourney.model.requestdto.HotelRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.HotelResponseDTO;
@@ -13,9 +14,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class HotelService extends BaseService<
-        HotelEntity, HotelResponseDTO, HotelRequestDTO, HotelRepository, HotelMapper> {
+        HotelEntity, HotelResponseDTO, HotelRequestDTO, HotelRepository, HotelMapper, HotelSpecification> {
 
     private final HotelRepository hotelRepository;
+    private final HotelSpecification hotelSpecification;
+
+    @Override
+    protected String getEntityName() {
+        return "Hotel";
+    }
 
     @Override
     protected HotelMapper getMapper() {
@@ -25,6 +32,11 @@ public class HotelService extends BaseService<
     @Override
     protected HotelRepository getRepository() {
         return this.hotelRepository;
+    }
+
+    @Override
+    protected HotelSpecification getSpecification() {
+        return hotelSpecification;
     }
 
     public void removeRoomFromHotel(HotelEntity hotel, HotelRoomEntity room) {

@@ -2,6 +2,7 @@ package com.yamacbayin.medjourney.controller;
 
 import com.yamacbayin.medjourney.database.entity.HospitalEntity;
 import com.yamacbayin.medjourney.database.repository.HospitalRepository;
+import com.yamacbayin.medjourney.database.specification.HospitalSpecification;
 import com.yamacbayin.medjourney.mapper.HospitalMapper;
 import com.yamacbayin.medjourney.model.requestdto.HospitalRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.HospitalResponseDTO;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("hospitals")
 @RequiredArgsConstructor
 public class HospitalController extends BaseController<
-        HospitalEntity, HospitalResponseDTO, HospitalRequestDTO, HospitalRepository, HospitalMapper, HospitalService> {
+        HospitalEntity, HospitalResponseDTO, HospitalRequestDTO,
+        HospitalRepository, HospitalMapper, HospitalSpecification, HospitalService> {
 
     private final HospitalService hospitalService;
 

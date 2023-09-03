@@ -6,6 +6,7 @@ import com.yamacbayin.medjourney.model.responsedto.FlightTicketResponseDTO;
 import com.yamacbayin.medjourney.util.IBaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -25,5 +26,6 @@ public interface FlightTicketMapper extends IBaseMapper<FlightTicketEntity,
     @Mapping(target = "flight", ignore = true)
     @Mapping(target = "seat", ignore = true)
     @Mapping(target = "passenger", ignore = true)
-    FlightTicketEntity updateEntityFromRequestDTO(FlightTicketRequestDTO flightTicketRequestDTO, FlightTicketEntity entity);
+    FlightTicketEntity updateEntityFromRequestDTO(FlightTicketRequestDTO flightTicketRequestDTO,
+                                                  @MappingTarget FlightTicketEntity entity);
 }

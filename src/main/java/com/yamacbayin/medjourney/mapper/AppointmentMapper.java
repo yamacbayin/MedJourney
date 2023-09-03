@@ -6,6 +6,7 @@ import com.yamacbayin.medjourney.model.responsedto.AppointmentResponseDTO;
 import com.yamacbayin.medjourney.util.IBaseMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
@@ -23,5 +24,6 @@ public interface AppointmentMapper extends IBaseMapper<
     @Override
     @Mapping(target = "doctor", ignore = true)
     @Mapping(target = "patient", ignore = true)
-    AppointmentEntity updateEntityFromRequestDTO(AppointmentCreationRequestDTO appointmentCreationRequestDTO, AppointmentEntity entity);
+    AppointmentEntity updateEntityFromRequestDTO(AppointmentCreationRequestDTO appointmentCreationRequestDTO,
+                                                 @MappingTarget AppointmentEntity entity);
 }

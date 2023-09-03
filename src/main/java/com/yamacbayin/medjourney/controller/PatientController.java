@@ -2,6 +2,7 @@ package com.yamacbayin.medjourney.controller;
 
 import com.yamacbayin.medjourney.database.entity.PatientEntity;
 import com.yamacbayin.medjourney.database.repository.PatientRepository;
+import com.yamacbayin.medjourney.database.specification.PatientSpecification;
 import com.yamacbayin.medjourney.mapper.PatientMapper;
 import com.yamacbayin.medjourney.model.requestdto.PatientRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.PatientResponseDTO;
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("patients")
 @RequiredArgsConstructor
 public class PatientController extends BaseController<
-        PatientEntity, PatientResponseDTO, PatientRequestDTO, PatientRepository, PatientMapper, PatientService> {
+        PatientEntity, PatientResponseDTO, PatientRequestDTO,
+        PatientRepository, PatientMapper, PatientSpecification, PatientService> {
 
     private final PatientService patientService;
 

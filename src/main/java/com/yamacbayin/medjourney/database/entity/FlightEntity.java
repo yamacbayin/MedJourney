@@ -46,7 +46,7 @@ public class FlightEntity extends BaseEntity {
             seat.setStatus(SeatStatusEnum.AVAILABLE);
             seat.setFlight(this);
             seat.setSeatNumber(i + 1);
-            seat.setPrice(ticketPrice);
+            seat.setPrice(this.ticketPrice);
             seatList.add(seat);
         }
     }

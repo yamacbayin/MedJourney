@@ -29,8 +29,8 @@ public class AppointmentEntity extends BaseEntity {
     private PatientEntity patient;
 
     @OneToOne
-    @JoinColumn(name = "hospital_reservation_id")
-    private HotelReservationEntity hotelReservationEntity;
+    @JoinColumn(name = "hotel_reservation_id")
+    private HotelReservationEntity hotelReservation;
 
     @OneToOne
     @JoinColumn(name = "departure_flight_id")

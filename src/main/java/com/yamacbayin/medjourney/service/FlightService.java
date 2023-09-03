@@ -4,7 +4,7 @@ import com.yamacbayin.medjourney.database.entity.AirplaneEntity;
 import com.yamacbayin.medjourney.database.entity.FlightEntity;
 import com.yamacbayin.medjourney.database.entity.FlightSeatEntity;
 import com.yamacbayin.medjourney.database.repository.FlightRepository;
-import com.yamacbayin.medjourney.exception.InvalidUuidException;
+import com.yamacbayin.medjourney.database.specification.FlightSpecification;
 import com.yamacbayin.medjourney.mapper.FlightMapper;
 import com.yamacbayin.medjourney.model.requestdto.FlightRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.FlightResponseDTO;
@@ -18,11 +18,17 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class FlightService extends BaseService<
-        FlightEntity, FlightResponseDTO, FlightRequestDTO, FlightRepository, FlightMapper> {
+        FlightEntity, FlightResponseDTO, FlightRequestDTO, FlightRepository, FlightMapper, FlightSpecification> {
 
     private final FlightRepository flightRepository;
+    private final FlightSpecification flightSpecification;
 
     private final AirplaneService airplaneService;
+
+    @Override
+    protected String getEntityName() {
+        return "Flight";
+    }
 
     @Override
     protected FlightMapper getMapper() {
@@ -35,13 +41,14 @@ public class FlightService extends BaseService<
     }
 
     @Override
+    protected FlightSpecification getSpecification() {
+        return flightSpecification;
+    }
+
+    @Override
     @Transactional
     public FlightResponseDTO save(FlightRequestDTO flightRequestDTO) {
         AirplaneEntity airplane = airplaneService.getEntityByUuid(flightRequestDTO.getAirplaneUuid());
-
-        if (airplane == null) {
-            throw new InvalidUuidException("Airplane UUID is not valid.");
-        }
 
         FlightEntity flight = FlightMapper.INSTANCE.requestDtoToEntity(flightRequestDTO);
         flight.setAirplane(airplane);
@@ -52,12 +59,8 @@ public class FlightService extends BaseService<
     @Transactional
     public FlightResponseDTO update(UUID uuid, FlightRequestDTO flightRequestDTO) {
 
-
         FlightEntity flight = this.getEntityByUuid(uuid);
 
-        if (flight == null) {
-            throw new InvalidUuidException("Flight UUID is not valid.");
-        }
 
         FlightEntity updatedFlight = getMapper().updateEntityFromRequestDTO(flightRequestDTO, flight);
 
@@ -66,9 +69,6 @@ public class FlightService extends BaseService<
 
             AirplaneEntity airplane = airplaneService.getEntityByUuid(flightRequestDTO.getAirplaneUuid());
 
-            if (airplane == null) {
-                throw new InvalidUuidException("Airplane UUID is not valid.");
-            }
 
             updatedFlight.setAirplane(airplane);
 

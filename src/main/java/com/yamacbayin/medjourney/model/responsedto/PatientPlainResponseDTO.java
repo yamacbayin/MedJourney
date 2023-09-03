@@ -1,6 +1,5 @@
 package com.yamacbayin.medjourney.model.responsedto;
 
-import com.yamacbayin.medjourney.database.entity.AddressEntity;
 import com.yamacbayin.medjourney.util.BaseResponseDTO;
 import lombok.Data;
 

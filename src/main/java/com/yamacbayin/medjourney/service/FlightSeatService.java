@@ -3,7 +3,7 @@ package com.yamacbayin.medjourney.service;
 import com.yamacbayin.medjourney.database.entity.FlightEntity;
 import com.yamacbayin.medjourney.database.entity.FlightSeatEntity;
 import com.yamacbayin.medjourney.database.repository.FlightSeatRepository;
-import com.yamacbayin.medjourney.exception.InvalidUuidException;
+import com.yamacbayin.medjourney.database.specification.FlightSeatSpecification;
 import com.yamacbayin.medjourney.mapper.FlightSeatMapper;
 import com.yamacbayin.medjourney.model.requestdto.FlightSeatRequestDTO;
 import com.yamacbayin.medjourney.model.responsedto.FlightSeatResponseDTO;
@@ -17,11 +17,18 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class FlightSeatService extends BaseService<
-        FlightSeatEntity, FlightSeatResponseDTO, FlightSeatRequestDTO, FlightSeatRepository, FlightSeatMapper> {
+        FlightSeatEntity, FlightSeatResponseDTO, FlightSeatRequestDTO,
+        FlightSeatRepository, FlightSeatMapper, FlightSeatSpecification> {
 
     private final FlightSeatRepository flightSeatRepository;
+    private final FlightSeatSpecification flightSeatSpecification;
 
     private final FlightService flightService;
+
+    @Override
+    protected String getEntityName() {
+        return "Seat";
+    }
 
     @Override
     protected FlightSeatMapper getMapper() {
@@ -33,14 +40,15 @@ public class FlightSeatService extends BaseService<
         return this.flightSeatRepository;
     }
 
+    @Override
+    protected FlightSeatSpecification getSpecification() {
+        return flightSeatSpecification;
+    }
+
 
     @Override
     public FlightSeatResponseDTO save(FlightSeatRequestDTO flightSeatRequestDTO) {
         FlightEntity flight = flightService.getEntityByUuid(flightSeatRequestDTO.getFlightUuid());
-
-        if (flight == null) {
-            throw new InvalidUuidException("Hospital UUID is not valid.");
-        }
 
         FlightSeatEntity seat = FlightSeatMapper.INSTANCE.requestDtoToEntity(flightSeatRequestDTO);
         seat.setFlight(flight);
@@ -52,18 +60,10 @@ public class FlightSeatService extends BaseService<
 
         FlightSeatEntity seat = this.getEntityByUuid(uuid);
 
-        if (seat == null) {
-            throw new InvalidUuidException("Doctor UUID is not valid.");
-        }
-
         if (flightSeatRequestDTO.getFlightUuid() != null
                 && seat.getFlight().getUuid() != flightSeatRequestDTO.getFlightUuid()) {
 
             FlightEntity flight = flightService.getEntityByUuid(flightSeatRequestDTO.getFlightUuid());
-
-            if (flight == null) {
-                throw new InvalidUuidException("Hospital UUID is not valid.");
-            }
 
             flightService.removeSeatFromFlight(seat.getFlight(), seat);
             seat.setFlight(flight);
@@ -75,7 +75,7 @@ public class FlightSeatService extends BaseService<
     }
 
     //TODO: update seat status by uuid
-    public FlightSeatEntity updateSeatStatus(FlightSeatEntity seat, SeatStatusEnum status){
+    public FlightSeatEntity updateSeatStatus(FlightSeatEntity seat, SeatStatusEnum status) {
         seat.setStatus(status);
         return getRepository().save(seat);
     }

@@ -1,5 +1,7 @@
 package com.yamacbayin.medjourney.util;
 
+import com.yamacbayin.medjourney.model.requestdto.BaseFilterRequestDTO;
+import com.yamacbayin.medjourney.model.responsedto.PageResponseDTO;
 import com.yamacbayin.medjourney.util.dbutil.BaseEntity;
 import com.yamacbayin.medjourney.util.dbutil.IBaseRepository;
 import org.springframework.http.HttpStatus;
@@ -15,20 +17,21 @@ public abstract class BaseController<
         RequestDTO,
         Repository extends IBaseRepository<Entity>,
         Mapper extends IBaseMapper<Entity, ResponseDTO, RequestDTO>,
-        Service extends BaseService<Entity, ResponseDTO, RequestDTO, Repository, Mapper>> {
+        Specification extends BaseSpecification<Entity>,
+        Service extends BaseService<Entity, ResponseDTO, RequestDTO, Repository, Mapper, Specification>> {
 
     protected abstract Service getService();
 
-    @GetMapping
+/*    @GetMapping
     public ResponseEntity<List<ResponseDTO>> getAll() {
         return new ResponseEntity<>(getService().getAll(), HttpStatus.OK);
-    }
+    }*/
 
-/*    @PostMapping("get-all")
+    @PostMapping("get-all")
     public ResponseEntity<PageResponseDTO<ResponseDTO>> getAll(
             @RequestBody BaseFilterRequestDTO baseFilterRequestDTO) {
         return new ResponseEntity<>(getService().getAll(baseFilterRequestDTO), HttpStatus.OK);
-    }*/
+    }
 
     @PostMapping
     public ResponseEntity<ResponseDTO> save(@RequestBody RequestDTO requestDTO) {
@@ -42,7 +45,7 @@ public abstract class BaseController<
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{uuid}")
     public ResponseEntity<Boolean> deleteByUuid(@PathVariable UUID uuid) {
         Boolean isDeleted = getService().deleteByUuid(uuid);
         if (Boolean.TRUE.equals(isDeleted)) {

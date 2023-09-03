@@ -21,6 +21,7 @@ public interface FlightSeatMapper extends IBaseMapper<FlightSeatEntity, FlightSe
 
     @Override
     @Mapping(target = "flight", ignore = true)
-    FlightSeatEntity updateEntityFromRequestDTO(FlightSeatRequestDTO flightSeatRequestDTO, @MappingTarget FlightSeatEntity entity);
+    FlightSeatEntity updateEntityFromRequestDTO(FlightSeatRequestDTO flightSeatRequestDTO,
+                                                @MappingTarget FlightSeatEntity entity);
 
 }

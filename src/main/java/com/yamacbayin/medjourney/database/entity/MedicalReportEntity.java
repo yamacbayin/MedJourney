@@ -18,7 +18,7 @@ public class MedicalReportEntity extends BaseEntity {
     private PatientEntity patient;
 
     @OneToOne(mappedBy = "report")
-    private AppointmentEntity appointmentEntity;
+    private AppointmentEntity appointment;
 
     private String note;
 

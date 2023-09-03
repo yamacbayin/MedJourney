@@ -17,7 +17,7 @@ public class FlightTicketEntity extends BaseEntity {
     @JoinColumn(name = "seat_id")
     private FlightSeatEntity seat;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "passenger_id")
     private PatientEntity passenger;
 

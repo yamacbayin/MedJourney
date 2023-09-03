@@ -17,6 +17,6 @@ public class FlightRequestDTO {
 
     private Date flightDate;
 
-    private BigDecimal seatPrice;
+    private BigDecimal ticketPrice;
 
 }
